@@ -1,0 +1,11 @@
+@import "../../globals.scss";
+
+.base-layout__viewport {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #0D2537, #1E4C68);
+}
