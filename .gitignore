@@ -57,3 +57,13 @@ typings/
 # dotenv environment variables file
 .env
 
+
+# DJANGO secrets
+backend/*/settings.py
+
+# python annoyingness
+.pyc
+
+backend/*/migrations
+
+__pycache__/

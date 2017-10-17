@@ -21,7 +21,7 @@ function* handleUpload(api, { image }) {
 
 function* loadImage(api) {
   try {
-    const multihash = yield call(api.loadImage)
+    const { multihash } = yield call(api.loadImage)
     yield put(ImageActions.imageSuccess(multihash))
   } catch (err) {
     yield put(ImageActions.imageError(err))

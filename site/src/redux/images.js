@@ -24,7 +24,7 @@ const INITIAL_STATE = Immutable({
 /* ------------- Reducer ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_IMAGE]: state =>
-    state.merge({ fetching: true }),
+    state.merge({ fetching: true, multihash: undefined }),
 
   [Types.IMAGE_SUCCESS]: (state, { multihash }) =>
     state.merge({ fetching: false, multihash }),

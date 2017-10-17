@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 export default class SubmissionContainer extends Component {
+
+  static propTypes = {
+    submitLabel: PropTypes.func.isRequired,
+    multihash: PropTypes.string.isRequired,
+  }
 
   constructor(props) {
     super(props)
@@ -14,6 +20,7 @@ export default class SubmissionContainer extends Component {
   submitLabel() {
     this.props.submitLabel(this.props.multihash, this.state.label)
     this.setState({ label: '' })
+    this.props.getImage()
   }
 
   render() {

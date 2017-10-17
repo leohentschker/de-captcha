@@ -7,7 +7,9 @@ const create = (baseURL = base) => {
     // base URL is read from the "constructor"
     baseURL,
     // here are some default headers
-    headers: {},
+    headers: {
+      Authorization: 'Token 83c09dc7eb78764a8e2a9bcc9951f2a53c39c01c',
+    },
 
     // 10 second timeout...
     timeout: 10000,
@@ -18,10 +20,19 @@ const create = (baseURL = base) => {
       .then(resp => resp.data)
 
   const loadImage = () =>
-    'QmW2WQi7j6c7UgJTarActp7tDNikE4B2qXtFCfLPdsgaTQ/cat.jpg'
+    api.get('image/')
+      .then(resp => resp.data)
+
+  const submitLabel = async (multihash, label) =>
+    api.put('label/', {
+      multihash,
+      label,
+    })
+      .then(resp => resp.data)
 
   return {
     uploadImage,
+    submitLabel,
     loadImage,
   }
 }

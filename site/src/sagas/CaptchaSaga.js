@@ -10,7 +10,8 @@ import CaptchaActions, { CaptchaTypes } from '../redux/captcha'
 
 function* handleSubmission(api, { multihash, label }) {
   try {
-    console.log(multihash, label, "SUBMITTING")
+    const { valid } = yield call(api.submitLabel, multihash, label)
+    yield put(CaptchaActions.submitSuccess(valid))
   } catch (err) {
     yield put(CaptchaActions.submitError(err))
   }
