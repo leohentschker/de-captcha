@@ -17,8 +17,12 @@ const create = (baseURL = base) => {
     api.get(`search/${query}/`)
       .then(resp => resp.data)
 
+  const loadImage = () =>
+    'QmW2WQi7j6c7UgJTarActp7tDNikE4B2qXtFCfLPdsgaTQ/cat.jpg'
+
   return {
     uploadImage,
+    loadImage,
   }
 }
 

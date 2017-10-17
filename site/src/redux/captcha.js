@@ -3,16 +3,18 @@ import Immutable from 'seamless-immutable'
 
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
-  submitAnswer: ['multihash', 'answer'],
+  submitLabel: ['multihash', 'label'],
   submitSuccess: ['correct'],
+  submitError: ['error'],
 })
 
-export const SearchTypes = Types
+export const CaptchaTypes = Types
 export default Creators
 
 /* ------------- Initial State ------------- */
 const INITIAL_STATE = Immutable({
   fetchingImage: false,
+  error: null,
   image: null,
   submitting: false,
   numCorrect: 0,
@@ -20,8 +22,11 @@ const INITIAL_STATE = Immutable({
 
 /* ------------- Reducer ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.SUBMIT_ANSWER]: state =>
+  [Types.SUBMIT_LABEL]: state =>
     state.merge({ submitting: true }),
+
+  [Types.SUBMIT_ERROR]: (state, { error }) =>
+    state.merge({ submitting: false, error }),
 
   [Types.SUBMIT_SUCCESS]: (state, { correct }) =>
     state.merge({

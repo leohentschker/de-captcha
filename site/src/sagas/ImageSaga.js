@@ -19,6 +19,18 @@ function* handleUpload(api, { image }) {
   }
 }
 
+function* loadImage(api) {
+  try {
+    const multihash = yield call(api.loadImage)
+    yield put(ImageActions.imageSuccess(multihash))
+  } catch (err) {
+    yield put(ImageActions.imageError(err))
+  }
+}
+
 export default function* flow(api) {
-  yield takeEvery(ImageTypes.UPLOAD_IMAGE, handleUpload, api)
+  yield [
+    takeEvery(ImageTypes.UPLOAD_IMAGE, handleUpload, api),
+    takeEvery(ImageTypes.GET_IMAGE, loadImage, api),
+  ]
 }

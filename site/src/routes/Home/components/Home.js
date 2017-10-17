@@ -14,6 +14,8 @@ const Home = props => (
     <Header />
     <DeCAPTCHA
       getImage={props.imageActions.getImage}
+      submitLabel={props.captchaActions.submitLabel}
+      multihash={props.multihash}
     />
     <SubmitButton
       uploadImage={props.imageActions.uploadImage}
@@ -23,7 +25,13 @@ const Home = props => (
 )
 
 Home.propTypes = {
+  captchaActions: PropTypes.objectOf(PropTypes.func).isRequired,
   imageActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  multihash: PropTypes.string,
+}
+
+Home.defaultProps = {
+  multihash: '',
 }
 
 export default Home

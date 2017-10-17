@@ -12,20 +12,20 @@ const DeCAPTCHA = props => (
   <div className="de-captcha">
     <ImageContainer
       multihash={props.multihash}
+      getImage={props.getImage}
     />
     <SubmissionBar
+      submitLabel={props.submitLabel}
       getImage={props.getImage}
+      multihash={props.multihash}
     />
   </div>
 )
 
 DeCAPTCHA.propTypes = {
+  submitLabel: PropTypes.func.isRequired,
+  multihash: PropTypes.string.isRequired,
   getImage: PropTypes.func.isRequired,
-  multihash: PropTypes.string,
-}
-
-DeCAPTCHA.defaultProps = {
-  multihash: '',
 }
 
 export default DeCAPTCHA

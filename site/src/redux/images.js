@@ -17,7 +17,7 @@ export default Creators
 const INITIAL_STATE = Immutable({
   uploading: false,
   fetching: false,
-  multihash: null,
+  multihash: undefined,
   error: null,
 })
 
