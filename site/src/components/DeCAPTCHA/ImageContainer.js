@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import Spinner from 'react-spinkit'
 
 
 const ImageContainer = ({ multihash }) => (
@@ -13,5 +12,9 @@ const ImageContainer = ({ multihash }) => (
     </div>
   </div>
 )
+
+ImageContainer.propTypes = {
+  multihash: PropTypes.string.isRequired,
+}
 
 export default ImageContainer

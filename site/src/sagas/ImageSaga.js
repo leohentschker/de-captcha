@@ -39,7 +39,7 @@ function* handleFlag(api, { multihash }) {
     // apologize to the user!
     swal(
       'We\'re sorry you had to see that!',
-      'We\'ve stopped showing the image to other users and will review it manually. Thank you for helping to make DeCAPTCHA a better place!',
+      'We\'ve stopped showing the image to other users and will review it manually. Thank you for making DeCAPTCHA a better place!',
       'warning',
     )
   } catch (err) {

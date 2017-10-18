@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import './BaseLayout.scss'
 import '../../styles/core.scss'
-import PropTypes from 'prop-types'
 
 
 export const BaseLayout = ({ children }) => (
@@ -13,7 +13,7 @@ export const BaseLayout = ({ children }) => (
 )
 
 BaseLayout.propTypes = {
-  children : PropTypes.element.isRequired
+  children : PropTypes.element.isRequired,
 }
 
 export default BaseLayout

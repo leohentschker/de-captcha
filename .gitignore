@@ -61,6 +61,8 @@ typings/
 # DJANGO secrets
 backend/*/settings.py
 
+site/dist/
+
 # python annoyingness
 .pyc
 

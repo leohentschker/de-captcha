@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { browserHistory, Router, Route } from 'react-router'
 import { Provider } from 'react-redux'
-import injectTapEventPlugin from 'react-tap-event-plugin'
 
 class AppContainer extends Component {
   static propTypes = {
