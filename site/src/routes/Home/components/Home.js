@@ -19,7 +19,7 @@ const Home = props => (
     />
     <SubmitButton
       uploadImage={props.imageActions.uploadImage}
-      enabled={props.numCorrect > 2}
+      numCorrect={props.numCorrect}
     />
     <Footer />
   </div>

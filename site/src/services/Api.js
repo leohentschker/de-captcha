@@ -15,9 +15,11 @@ const create = (baseURL = base) => {
     timeout: 10000,
   })
 
-  const uploadImage = async query =>
-    api.get(`search/${query}/`)
-      .then(resp => resp.data)
+  const uploadImage = async (image) => {
+    const data = new FormData()
+    data.append('image', image)
+    return api.post('upload/', data)
+  }
 
   const loadImage = () =>
     api.get('image/')

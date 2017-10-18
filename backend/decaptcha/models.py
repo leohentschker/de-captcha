@@ -11,3 +11,10 @@ class Image(models.Model):
     labels = JSONField(default=dict)
     labeled = models.BooleanField(default=False)
     numResponses = models.IntegerField(default=0)
+
+    def is_valid_label(self, label):
+        """
+        Takes a label and determines whether
+        or not we consider it to be valid
+        """
+        return (self.labels[label] / float(self.numResponses) > .2)

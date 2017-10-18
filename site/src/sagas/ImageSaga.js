@@ -10,8 +10,7 @@ import ImageActions, { ImageTypes } from '../redux/images'
 
 function* handleUpload(api, { image }) {
   try {
-    console.log("HANDLING THE UPLOADDD")
-    return
+    console.log(image)
     const multihash = yield call(api.uploadImage, image)
     yield put(ImageActions.uploadSuccess(multihash))
   } catch (err) {

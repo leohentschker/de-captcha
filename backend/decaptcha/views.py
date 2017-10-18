@@ -1,7 +1,11 @@
 from decaptcha.serializers import ImageSerializer
+from rest_framework.response import Response
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+import tempfile
+import ipfsapi
+import shutil
 
 from decaptcha.models import Image
 
@@ -16,35 +20,56 @@ class ImageRetrievalView(generics.RetrieveAPIView):
         return self.get_queryset().first()
 
 
+class ImageCreateView(generics.CreateAPIView):
+    """
+    Upload a file to create an image
+    """
+    serializer_class = ImageSerializer
+    
+    def create(self, request, *args, **kwargs):
+        """
+        Extracts the file object from a request,
+        adds the file to IPFS and creates the
+        database object
+        """
+        image_object = request.data.pop('image')[0]
+        # move the object to a temporary directory
+        _, tempfile_path = tempfile.mkstemp()
+        shutil.copyfileobj(image_object, open(tempfile_path, 'wb'))
+        
+        # upload the file to IPFS
+        client = ipfsapi.connect('127.0.0.1', 5001)
+        result = client.add(tempfile_path)
+
+        # add the image to our database
+        image, created = Image.objects.get_or_create(multihash=result['Hash'])
+
+        serializer = self.serializer_class(image)
+        return Response(serializer.data)
+
+
 class ImageLabelView(generics.UpdateAPIView):
-	"""
-	Expose label updating on the individual
-	images
-	"""
-	serializer_class = ImageSerializer
+    """
+    Expose label updating on the individual
+    images
+    """
+    serializer_class = ImageSerializer
 
-	def get_object(self):
-		multihash = self.request.data.get('multihash')
-		return get_object_or_404(Image, pk=multihash)
+    def get_object(self):
+        multihash = self.request.data.get('multihash')
+        return get_object_or_404(Image, pk=multihash)
 
-	def is_valid_label(self, image, label):
-		"""
-		Takes a label and determines whether
-		or not we consider it to be valid
-		"""
-		return (image.labels[label] / float(image.numResponses) > .2)
+    def update(self, request, *args, **kwargs):
+        label = request.data.get('label')
+        cleaned_label = label.lower().strip()
 
-	def update(self, request, *args, **kwargs):
-		label = request.data.get('label')
-		cleaned_label = label.lower().strip()
+        # retrieve the object
+        image = self.get_object()
 
-		# retrieve the object
-		image = self.get_object()
+        # store the new label we are marking
+        previous_similar = image.labels.get(cleaned_label, 0)
+        image.labels[cleaned_label] = previous_similar + 1
+        image.numResponses += 1
+        image.save()
 
-		# store the new label we are marking
-		previous_similar = image.labels.get(cleaned_label, 0)
-		image.labels[cleaned_label] = previous_similar + 1
-		image.numResponses += 1
-		image.save()
-
-		return JsonResponse({"valid": self.is_valid_label(image, cleaned_label)})
+        return JsonResponse({"valid": image.is_valid_label(cleaned_label)})

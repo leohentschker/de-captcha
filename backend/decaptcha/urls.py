@@ -21,6 +21,7 @@ from rest_framework import routers
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
+    url(r'upload/$', views.ImageCreateView.as_view(), name='upload_image'),
     url(r'image/$', views.ImageRetrievalView.as_view(), name='get_image'),
     url(r'label/$', views.ImageLabelView.as_view(), name='label_image'),
 ]
