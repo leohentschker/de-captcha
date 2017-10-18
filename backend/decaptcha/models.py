@@ -1,5 +1,8 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+import tempfile
+import ipfsapi
+import shutil
 
 
 class Image(models.Model):
@@ -10,14 +13,24 @@ class Image(models.Model):
     multihash = models.CharField(max_length=1000, primary_key=True)
     labels = JSONField(default=dict)
     labeled = models.BooleanField(default=False)
-    numResponses = models.IntegerField(default=0)
+    num_responses = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        """
+        Overwrite the default save method
+        to auto-set the number of responses
+        """
+        if self.labels:
+            self.num_responses = sum([weight for label, weight in self.labels.items()])
+
+        return super(Image, self).save(*args, **kwargs)
 
     def is_valid_label(self, label):
         """
         Takes a label and determines whether
         or not we consider it to be valid
         """
-        return (self.labels[label] / float(self.numResponses) > .2)
+        return self.labels[label] > 0
 
     @classmethod
     def from_image_file(cls, image_object):

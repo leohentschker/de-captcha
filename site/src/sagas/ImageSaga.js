@@ -12,10 +12,12 @@ import ImageActions, { ImageTypes } from '../redux/images'
 
 function* handleUpload(api, { image }) {
   try {
-    const uploadResponse = yield call(api.uploadImage, image)
 
+    // upload the image to the backend
+    const uploadResponse = yield call(api.uploadImage, image)
     yield put(ImageActions.uploadSuccess(uploadResponse))
 
+    // display the link to the image
     const link = `https://ipfs.io/ipfs/${uploadResponse.multihash}`
     swal({
       title: 'Upload success!',
@@ -29,16 +31,14 @@ function* handleUpload(api, { image }) {
 
 function* loadImage(api) {
   try {
-    const numCorrect = yield select(state => {
-      console.log(state, "IN SELECTPR")
-      return state.captcha.numCorrect
-    })
+    const numCorrect = yield select(state => state.captcha.numCorrect)
+
     const { multihash } = yield call(api.loadImage, numCorrect)
     yield put(ImageActions.imageSuccess(multihash))
   } catch (err) {
     swal(
       'Woops!',
-      'We aren\'t able to connect to the server. Try refreshing the page!',
+      'We couldn\'t connect to the server. Try refreshing the page!',
       'error',
     )
     yield put(ImageActions.imageError(err))

@@ -3,11 +3,11 @@ from rest_framework.response import Response
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-import tempfile
-import ipfsapi
-import shutil
+import enchant
 
 from decaptcha.models import Image
+
+ENGLISH_DICT = enchant.Dict("en_US")
 
 class ImageRetrievalView(generics.RetrieveAPIView):
     """
@@ -23,7 +23,7 @@ class ImageRetrievalView(generics.RetrieveAPIView):
         # the user has proven they are answering
         # correctly
         if int(numCorrect) <= 3:
-            return self.get_queryset().filter(numResponses__gt=20).first()
+            return self.get_queryset().filter(num_responses__gt=20).first()
 
         return self.get_queryset().first()
 
@@ -64,13 +64,16 @@ class ImageLabelView(generics.UpdateAPIView):
         label = request.data.get('label')
         cleaned_label = label.lower().strip()
 
+        # make sure the user submitted an actual word
+        if not ENGLISH_DICT.check(cleaned_label):
+            return JsonResponse({"valid": False})
+
         # retrieve the object
         image = self.get_object()
 
         # store the new label we are marking
         previous_similar = image.labels.get(cleaned_label, 0)
         image.labels[cleaned_label] = previous_similar + 1
-        image.numResponses += 1
         image.save()
 
         return JsonResponse({"valid": image.is_valid_label(cleaned_label)})

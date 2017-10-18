@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 import React from 'react'
 
-const TOTAL_CORRECT_REQUIRED = 0
+const TOTAL_CORRECT_REQUIRED = 3
 
 const SubmitButton = ({ uploadImage, numCorrect }) => {
   const enabled = numCorrect >= TOTAL_CORRECT_REQUIRED
