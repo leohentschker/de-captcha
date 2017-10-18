@@ -8,9 +8,9 @@ import {
 // internal
 import CaptchaActions, { CaptchaTypes } from '../redux/captcha'
 
-function* handleSubmission(api, { multihash, label }) {
+function* handleSubmission(api, { multihash, label, numCorrect }) {
   try {
-    const { valid } = yield call(api.submitLabel, multihash, label)
+    const { valid } = yield call(api.submitLabel, multihash, label, numCorrect)
     yield put(CaptchaActions.submitSuccess(valid))
   } catch (err) {
     yield put(CaptchaActions.submitError(err))

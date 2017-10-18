@@ -22,12 +22,13 @@ const create = (baseURL = base) => {
       .then(resp => resp.data)
   }
 
-  const loadImage = () =>
-    api.get('image/')
+  const loadImage = numCorrect =>
+    api.get('image/', { numCorrect })
       .then(resp => resp.data)
 
-  const submitLabel = async (multihash, label) =>
+  const submitLabel = async (multihash, label, numCorrect) =>
     api.put('label/', {
+      numCorrect,
       multihash,
       label,
     })

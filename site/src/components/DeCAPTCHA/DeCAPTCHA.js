@@ -33,8 +33,8 @@ export default class DeCAPTCHA extends Component {
             />
             <SubmissionBar
               submitLabel={this.props.submitLabel}
-              getImage={this.props.getImage}
               multihash={this.props.multihash}
+              getImage={this.props.getImage}
             />
           </div>
 

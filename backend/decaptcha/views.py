@@ -17,6 +17,14 @@ class ImageRetrievalView(generics.RetrieveAPIView):
     queryset = Image.objects.order_by('?')
 
     def get_object(self):
+        numCorrect = self.request.query_params.get("numCorrect")
+
+        # only start showing new images after
+        # the user has proven they are answering
+        # correctly
+        if int(numCorrect) <= 3:
+            return self.get_queryset().filter(numResponses__gt=20).first()
+
         return self.get_queryset().first()
 
 
@@ -33,16 +41,8 @@ class ImageCreateView(generics.CreateAPIView):
         database object
         """
         image_object = request.data.pop('image')[0]
-        # move the object to a temporary directory
-        _, tempfile_path = tempfile.mkstemp()
-        shutil.copyfileobj(image_object, open(tempfile_path, 'wb'))
-        
-        # upload the file to IPFS
-        client = ipfsapi.connect('127.0.0.1', 5001)
-        result = client.add(tempfile_path)
 
-        # add the image to our database
-        image, created = Image.objects.get_or_create(multihash=result['Hash'])
+        image = Image.from_image_file(image_object)
 
         serializer = self.serializer_class(image)
         return Response(serializer.data)
@@ -57,6 +57,7 @@ class ImageLabelView(generics.UpdateAPIView):
 
     def get_object(self):
         multihash = self.request.data.get('multihash')
+
         return get_object_or_404(Image, pk=multihash)
 
     def update(self, request, *args, **kwargs):

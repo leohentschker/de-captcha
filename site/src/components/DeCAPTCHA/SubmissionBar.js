@@ -18,9 +18,12 @@ export default class SubmissionContainer extends Component {
   }
 
   submitLabel() {
-    this.props.submitLabel(this.props.multihash, this.state.label)
+    this.props.submitLabel(
+      this.props.multihash,
+      this.state.label,
+    )
+
     this.setState({ label: '' })
-    this.props.getImage()
   }
 
   render() {

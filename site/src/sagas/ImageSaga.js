@@ -1,6 +1,7 @@
 // external
 import {
   takeEvery,
+  select,
   call,
   put,
 } from 'redux-saga/effects'
@@ -28,7 +29,11 @@ function* handleUpload(api, { image }) {
 
 function* loadImage(api) {
   try {
-    const { multihash } = yield call(api.loadImage)
+    const numCorrect = yield select(state => {
+      console.log(state, "IN SELECTPR")
+      return state.captcha.numCorrect
+    })
+    const { multihash } = yield call(api.loadImage, numCorrect)
     yield put(ImageActions.imageSuccess(multihash))
   } catch (err) {
     swal(

@@ -31,6 +31,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SUBMIT_SUCCESS]: (state, { correct }) =>
     state.merge({
       submitting: false,
-      numCorrect: correct ? state.numCorrect + 1 : stat.numCorrect 
+      numCorrect: correct ? state.numCorrect + 1 : state.numCorrect,
     }),
 })
