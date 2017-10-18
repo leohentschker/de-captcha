@@ -23,6 +23,10 @@
 		}
 	}
 
+	.submit-wrapper {
+		margin-top: 20px;
+	}
+
 	.submit-wrapper > div {
 		height: 80px !important;
 		width: 500px !important;
@@ -42,14 +46,6 @@
 
 	.de-captcha {
 		flex: 1;
-		width: 100%;
-		min-width: 600px;
-		min-height: 350px;
-		background: #dadada;
-		margin: 20px;
-		align-items: center;
-		justify-content: center;
-
 	}
 
 	.footer {

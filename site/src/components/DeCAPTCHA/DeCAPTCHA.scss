@@ -6,6 +6,12 @@
 
 	width: 100%;
 	color: black;
+	width: 100%;
+	min-width: 600px;
+	min-height: 350px;
+	background: #dadada;
+	justify-content: center;
+
 
 	.loading-spinner-wrapper .sk-pulse>div {
 		width: 200px !important;
@@ -19,8 +25,9 @@
 		align-items: center;
 
 		.img-to-label {
-			width: 400px;
-			height: 300px;
+			width: 380px;
+			height: 280px;
+
 		}
 	}
 

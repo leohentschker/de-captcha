@@ -65,7 +65,7 @@ class ImageLabelView(generics.UpdateAPIView):
         cleaned_label = label.lower().strip()
 
         # make sure the user submitted an actual word
-        if not ENGLISH_DICT.check(cleaned_label):
+        if not cleaned_label or not ENGLISH_DICT.check(cleaned_label):
             return JsonResponse({"valid": False})
 
         # retrieve the object

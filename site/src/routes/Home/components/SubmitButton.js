@@ -7,7 +7,7 @@ const TOTAL_CORRECT_REQUIRED = 3
 const SubmitButton = ({ uploadImage, numCorrect }) => {
   const enabled = numCorrect >= TOTAL_CORRECT_REQUIRED
   return (
-    <div className="submit-wrapper">
+    <div className={'submit-wrapper ' + (enabled ? 'enabled' : 'disabled')}>
       <Dropzone
         accept="image/*"
         multiple={false}

@@ -18,6 +18,10 @@ export default class SubmissionContainer extends Component {
   }
 
   submitLabel() {
+    if (this.state.label.length === 0) {
+      return
+    }
+
     this.props.submitLabel(
       this.props.multihash,
       this.state.label,
@@ -34,7 +38,7 @@ export default class SubmissionContainer extends Component {
           <input
             autoFocus
             className="label-input"
-            placeholder="ex. cat"
+            placeholder="ex. cat, shoe, car"
             type="text"
             value={this.state.label}
             onChange={e => this.setState({ label: e.target.value })}
@@ -44,9 +48,7 @@ export default class SubmissionContainer extends Component {
             role="button"
             tabIndex={0}
             className="submit-label-btn"
-            onClick={() =>
-              this.submitLabel()
-            }
+            onClick={() => this.submitLabel()}
           >
             <span>Submit Label</span>
           </div>

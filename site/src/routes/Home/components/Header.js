@@ -2,9 +2,9 @@ import React from 'react'
 
 const Header = () => (
   <div className="header">
-    <div className="title">DeCAPTCHA</div>
+    <img src="/logo.png" />
     <div className="subtitle">
-      De-centralized CAPTCHA and image hosting built on IPFS
+      Free image hosting built on IPFS
     </div>
   </div>
 )
