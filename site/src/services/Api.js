@@ -19,6 +19,7 @@ const create = (baseURL = base) => {
     const data = new FormData()
     data.append('image', image)
     return api.post('upload/', data)
+      .then(resp => resp.data)
   }
 
   const loadImage = () =>

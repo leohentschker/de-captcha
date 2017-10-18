@@ -4,15 +4,23 @@ import {
   call,
   put,
 } from 'redux-saga/effects'
+import swal from 'sweetalert2'
 
 // internal
 import ImageActions, { ImageTypes } from '../redux/images'
 
 function* handleUpload(api, { image }) {
   try {
-    console.log(image)
-    const multihash = yield call(api.uploadImage, image)
-    yield put(ImageActions.uploadSuccess(multihash))
+    const uploadResponse = yield call(api.uploadImage, image)
+
+    yield put(ImageActions.uploadSuccess(uploadResponse))
+
+    const link = `https://ipfs.io/ipfs/${uploadResponse.multihash}`
+    swal({
+      title: 'Upload success!',
+      type: 'success',
+      html: `You can access your file here <a target="_blank" href="${link}">${link}</a>`,
+    })
   } catch (err) {
     yield put(ImageActions.uploadError(err))
   }
@@ -23,6 +31,11 @@ function* loadImage(api) {
     const { multihash } = yield call(api.loadImage)
     yield put(ImageActions.imageSuccess(multihash))
   } catch (err) {
+    swal(
+      'Woops!',
+      'We aren\'t able to connect to the server. Try refreshing the page!',
+      'error',
+    )
     yield put(ImageActions.imageError(err))
   }
 }

@@ -7,6 +7,7 @@ const { Types, Creators } = createActions({
   uploadSuccess: ['multihash'],
   uploadError: ['error'],
   imageSuccess: ['multihash'],
+  imageError: ['error'],
   getImage: [],
 })
 
@@ -28,6 +29,9 @@ export const reducer = createReducer(INITIAL_STATE, {
 
   [Types.IMAGE_SUCCESS]: (state, { multihash }) =>
     state.merge({ fetching: false, multihash }),
+
+  [Types.IMAGE_ERROR]: (state, { error }) =>
+    state.merge({ fetching: false, error }),
 
   [Types.UPLOAD_IMAGE]: state =>
     state.merge({ uploading: true }),
