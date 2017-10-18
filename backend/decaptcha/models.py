@@ -11,9 +11,9 @@ class Image(models.Model):
     with the service
     """
     multihash = models.CharField(max_length=1000, primary_key=True)
+    num_responses = models.IntegerField(default=0, db_index=True)
+    flagged = models.BooleanField(default=False, db_index=True)
     labels = JSONField(default=dict)
-    flagged = models.BooleanField(default=False)
-    num_responses = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         """
