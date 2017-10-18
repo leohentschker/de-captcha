@@ -19,6 +19,7 @@ const Home = props => (
     />
     <SubmitButton
       uploadImage={props.imageActions.uploadImage}
+      enabled={props.numCorrect > 2}
     />
     <Footer />
   </div>
@@ -27,6 +28,7 @@ const Home = props => (
 Home.propTypes = {
   captchaActions: PropTypes.objectOf(PropTypes.func).isRequired,
   imageActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  numCorrect: PropTypes.number.isRequired,
   multihash: PropTypes.string,
 }
 

@@ -13,6 +13,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
+  numCorrect: state.captcha.numCorrect,
   multihash: state.images.multihash,
 })
 

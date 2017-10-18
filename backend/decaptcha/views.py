@@ -27,23 +27,24 @@ class ImageLabelView(generics.UpdateAPIView):
 		multihash = self.request.data.get('multihash')
 		return get_object_or_404(Image, pk=multihash)
 
-	def is_valid_label(self, label):
+	def is_valid_label(self, image, label):
 		"""
 		Takes a label and determines whether
 		or not we consider it to be valid
 		"""
-		return (self.labels[label] / float(self.numResponses) > .2)
+		return (image.labels[label] / float(image.numResponses) > .2)
 
 	def update(self, request, *args, **kwargs):
 		label = request.data.get('label')
+		cleaned_label = label.lower().strip()
 
 		# retrieve the object
 		image = self.get_object()
 
 		# store the new label we are marking
-		previous_similar = image.labels.get(label, 0)
-		image.labels[label] = previous_similar + 1
+		previous_similar = image.labels.get(cleaned_label, 0)
+		image.labels[cleaned_label] = previous_similar + 1
 		image.numResponses += 1
 		image.save()
 
-		return JsonResponse({"valid": self.is_valid_label(label)})
+		return JsonResponse({"valid": self.is_valid_label(image, cleaned_label)})

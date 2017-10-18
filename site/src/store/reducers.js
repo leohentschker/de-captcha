@@ -4,7 +4,7 @@ import locationReducer from './location'
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
     images: require('../redux/images').reducer,
-    decaptcha: require('../redux/captcha').reducer,
+    captcha: require('../redux/captcha').reducer,
     location: locationReducer,
     ...asyncReducers,
   })

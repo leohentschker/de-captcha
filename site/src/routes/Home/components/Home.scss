@@ -18,6 +18,7 @@
 		}
 
 		.subtitle {
+			margin-top: 15px;
 			font-size: 25px;
 		}
 	}
@@ -31,6 +32,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+		cursor: pointer;
 	}
 
 	.de-captcha {
@@ -93,6 +96,14 @@
 					border-radius: 3px;
 
 					cursor: pointer;
+
+					&:hover {
+						background: #dadada;
+						color: #0D2537;
+						border-style: solid;
+						border-color: #0D2537;
+						border-width: 1px;
+					}
 				}
 			}
 		}
