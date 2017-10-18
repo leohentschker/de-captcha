@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
+import ReactTooltip from 'react-tooltip'
+import FontAwesome from 'react-fontawesome'
 import PropTypes from 'prop-types'
+import swal from 'sweetalert2'
 
 export default class SubmissionContainer extends Component {
 
   static propTypes = {
     submitLabel: PropTypes.func.isRequired,
     multihash: PropTypes.string.isRequired,
+    flagImage: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -52,7 +56,27 @@ export default class SubmissionContainer extends Component {
           >
             <span>Submit Label</span>
           </div>
+          <div
+            role="button"
+            tabIndex={0}
+            className="flag-btn"
+            onClick={() =>
+              swal({
+                showCancelButton: true,
+                title: 'Flag this as inappropriate?',
+                text: 'This will prevent other users from seeing the image until it is manually reviewed.',
+                type: 'question',
+              })
+              .then(() => this.props.flagImage(this.props.multihash))
+            }
+            data-tip="Flag content as inappropriate"
+          >
+            <span><FontAwesome name="flag" /></span>
+          </div>
         </div>
+
+        {/* This is only to make the tooltip on the flag button work */}
+        <ReactTooltip />
       </div>
     )
   }

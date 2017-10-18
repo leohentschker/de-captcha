@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'upload/$', views.ImageCreateView.as_view(), name='upload_image'),
     url(r'image/$', views.ImageRetrievalView.as_view(), name='get_image'),
     url(r'label/$', views.ImageLabelView.as_view(), name='label_image'),
+    url(r'flag/(?P<pk>[\w]+)/$', views.FlagImageView.as_view(), name='flag_image'),
 ]

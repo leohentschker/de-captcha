@@ -56,6 +56,22 @@
 				}
 			}
 
+			.flag-btn {
+				color: #0D2537;
+				border-style: solid;
+				border-color: #0D2537;
+				border-width: 1px;
+				justify-content: center;
+				align-items: center;
+				display: flex;
+				width: 40px;
+
+				&:hover {
+					color: white;
+					background: #0D2537;
+				}
+			}
+
 			.submit-label-btn {
 				color: #dadada;
 				background: #0D2537;
@@ -68,7 +84,7 @@
 				cursor: pointer;
 
 				&:hover {
-					background: #dadada;
+					background: white;
 					color: #0D2537;
 					border-style: solid;
 					border-color: #0D2537;

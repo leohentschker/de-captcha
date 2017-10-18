@@ -12,7 +12,7 @@ class Image(models.Model):
     """
     multihash = models.CharField(max_length=1000, primary_key=True)
     labels = JSONField(default=dict)
-    labeled = models.BooleanField(default=False)
+    flagged = models.BooleanField(default=False)
     num_responses = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):

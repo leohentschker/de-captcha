@@ -34,9 +34,14 @@ const create = (baseURL = base) => {
     })
       .then(resp => resp.data)
 
+  const flagImage = async multihash =>
+    api.put(`flag/${multihash}/`)
+      .then(resp => resp.data)
+
   return {
     uploadImage,
     submitLabel,
+    flagImage,
     loadImage,
   }
 }

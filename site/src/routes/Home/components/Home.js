@@ -15,6 +15,7 @@ const Home = props => (
     <DeCAPTCHA
       submitLabel={props.captchaActions.submitLabel}
       multihash={props.multihash}
+      flagImage={props.imageActions.flagImage}
       getImage={props.imageActions.getImage}
     />
     <SubmitButton

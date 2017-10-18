@@ -12,7 +12,6 @@ import ImageActions, { ImageTypes } from '../redux/images'
 
 function* handleUpload(api, { image }) {
   try {
-
     // upload the image to the backend
     const uploadResponse = yield call(api.uploadImage, image)
     yield put(ImageActions.uploadSuccess(uploadResponse))
@@ -26,6 +25,29 @@ function* handleUpload(api, { image }) {
     })
   } catch (err) {
     yield put(ImageActions.uploadError(err))
+  }
+}
+
+function* handleFlag(api, { multihash }) {
+  try {
+    // flag the image as offensive
+    yield call(api.flagImage, multihash)
+
+    // mark we are done and get a new image
+    yield put(ImageActions.getImage())
+
+    // apologize to the user!
+    swal(
+      'We\'re sorry you had to see that!',
+      'We\'ve stopped showing the image to other users and will review it manually. Thank you for helping to make DeCAPTCHA a better place!',
+      'warning',
+    )
+  } catch (err) {
+    swal(
+      'Woops!',
+      'We are unable to flag the image at this time. Please refresh the page!',
+      'error',
+    )
   }
 }
 
@@ -48,6 +70,7 @@ function* loadImage(api) {
 export default function* flow(api) {
   yield [
     takeEvery(ImageTypes.UPLOAD_IMAGE, handleUpload, api),
+    takeEvery(ImageTypes.FLAG_IMAGE, handleFlag, api),
     takeEvery(ImageTypes.GET_IMAGE, loadImage, api),
   ]
 }

@@ -14,7 +14,7 @@ class ImageRetrievalView(generics.RetrieveAPIView):
     Expose image retreival
     """
     serializer_class = ImageSerializer
-    queryset = Image.objects.order_by('?')
+    queryset = Image.objects.filter(flagged=False).order_by('?')
 
     def get_object(self):
         numCorrect = self.request.query_params.get("numCorrect")
@@ -47,6 +47,28 @@ class ImageCreateView(generics.CreateAPIView):
         serializer = self.serializer_class(image)
         return Response(serializer.data)
 
+
+class FlagImageView(generics.UpdateAPIView):
+    """
+    Expose label updating on the individual
+    images
+    """
+    serializer_class = ImageSerializer
+    queryset = Image.objects.all()
+
+    def update(self, request, *args, **kwargs):
+        """
+        Create a mechanism through which users can
+        flag particular images as inappropriate
+        """
+        # retrieve the object
+        image = self.get_object()
+
+        # mark the image as flagged
+        image.flagged = True
+        image.save()
+
+        return JsonResponse({"flagged": True})
 
 class ImageLabelView(generics.UpdateAPIView):
     """
