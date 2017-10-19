@@ -45,6 +45,7 @@ export default class DeCAPTCHA extends Component {
             <Spinner
               name="pulse"
               color="#0D2537"
+              fadeIn="none"
             />
           </div>
         )}

@@ -20,7 +20,7 @@
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "deployS3": "export NODE_ENV=production && npm run compile && aws s3 sync dist/ s3://decaptcha"
+    "deploys3": "export NODE_ENV=production && npm run compile && aws s3 sync dist/ s3://decaptcha"
   },
   "betterScripts": {
     "compile": {

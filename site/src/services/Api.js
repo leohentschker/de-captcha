@@ -1,6 +1,6 @@
 import apisauce from 'apisauce'
 
-const base = 'http://localhost:8000'
+const base = 'http://ec2-34-196-182-140.compute-1.amazonaws.com'
 
 const create = (baseURL = base) => {
   const api = apisauce.create({
