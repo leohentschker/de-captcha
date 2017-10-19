@@ -64,7 +64,7 @@ backend/*/settings.py
 site/dist/
 
 # python annoyingness
-.pyc
+*.pyc
 
 backend/*/migrations
 
