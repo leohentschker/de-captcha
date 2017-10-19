@@ -27,7 +27,7 @@ class ImageRetrievalView(generics.RetrieveAPIView):
         # only start showing new images after
         # the user has proven they are answering
         # correctly
-        if int(numCorrect) <= 3:
+        if int(num_correct) <= 3:
             return self.get_queryset().filter(num_responses__gt=20).first()
 
         return self.get_queryset().first()
