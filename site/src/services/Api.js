@@ -16,10 +16,11 @@ const create = (baseURL = base) => {
     timeout: 10000,
   })
 
-  const uploadImage = async (image) => {
+  const uploadImage = async (image, credentials) => {
     const data = new FormData()
     data.append('image', image)
-    return api.post('upload/', data)
+    data.append('credentials', credentials)
+    return api.post('upload/', data, { credentials })
       .then(resp => resp.data)
   }
 

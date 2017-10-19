@@ -2,10 +2,7 @@ import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 import React from 'react'
 
-const TOTAL_CORRECT_REQUIRED = 3
-
-const SubmitButton = ({ uploadImage, numCorrect }) => {
-  const enabled = numCorrect >= TOTAL_CORRECT_REQUIRED
+const SubmitButton = ({ uploadImage, enabled }) => {
   return (
     <div className={'submit-wrapper ' + (enabled ? 'enabled' : 'disabled')}>
       <Dropzone
@@ -15,7 +12,7 @@ const SubmitButton = ({ uploadImage, numCorrect }) => {
         disabled={!enabled}
       >
         <span className="upload-description">
-          {enabled ? 'Add your own image' : `Correctly label ${TOTAL_CORRECT_REQUIRED - numCorrect} more images to enable uploading!`}
+          {enabled ? 'Add your own image' : 'Keep labeling images to enable uploading!'}
         </span>
       </Dropzone>
     </div>
@@ -24,7 +21,7 @@ const SubmitButton = ({ uploadImage, numCorrect }) => {
 
 SubmitButton.propTypes = {
   uploadImage: PropTypes.func.isRequired,
-  numCorrect: PropTypes.number.isRequired,
+  enabled: PropTypes.bool.isRequired,
 }
 
 export default SubmitButton

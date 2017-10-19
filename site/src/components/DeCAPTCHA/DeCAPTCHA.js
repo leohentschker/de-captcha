@@ -13,7 +13,13 @@ import './DeCAPTCHA.scss'
 
 const api = Api.create()
 
+const KEYS_REQUIRED = 1
+
 export default class DeCAPTCHA extends Component {
+
+  static propTypes = {
+    updateValidCaptcha: PropTypes.func.isRequired,
+  }
 
   constructor(props) {
     super(props)
@@ -24,6 +30,7 @@ export default class DeCAPTCHA extends Component {
       label: '',
     }
 
+    this.extractCredentials = this.extractCredentials.bind(this)
     this.submitLabel = this.submitLabel.bind(this)
     this.flagImage = this.flagImage.bind(this)
     this.getImage = this.getImage.bind(this)
@@ -31,6 +38,18 @@ export default class DeCAPTCHA extends Component {
 
   componentDidMount() {
     this.getImage()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const prevCorrect = prevState.validationKeys.length
+    const currCorrect = this.state.validationKeys.length
+    if (prevCorrect < KEYS_REQUIRED && currCorrect >= KEYS_REQUIRED) {
+      this.props.updateValidCaptcha(true)
+    }
+
+    if (prevCorrect >= KEYS_REQUIRED && currCorrect < KEYS_REQUIRED) {
+      this.props.updateValidCaptcha(false)
+    }
   }
 
   getImage() {
@@ -55,21 +74,28 @@ export default class DeCAPTCHA extends Component {
         })
       }
     })
-    .then(() => this.setState({ label: '' }))
+    .then(() => this.setState({ label: '', multihash: '' }))
     .then(() => this.getImage())
   }
 
   flagImage() {
     api.flagImage(this.state.multihash)
-      .then(() => swal(
-        'We\'re sorry you had to see that!',
-        'We\'ve stopped showing the image to other users and will review it manually. Thank you for making DeCAPTCHA a better place!',
-        'warning',
-      ))
+    .then(() => swal(
+      'We\'re sorry you had to see that!',
+      'We\'ve stopped showing the image to other users and will review it manually. Thank you for making DeCAPTCHA a better place!',
+      'warning',
+    ))
+    .then(() => this.getImage())
+  }
+
+  extractCredentials() {
+    const keys = this.state.validationKeys.slice(0, KEYS_REQUIRED)
+    const remaining = this.state.validationKeys.slice(KEYS_REQUIRED)
+    this.setState({ validationKeys: remaining })
+    return keys.join(':')
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="de-captcha">
         {this.state.multihash ? (

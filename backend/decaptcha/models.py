@@ -24,7 +24,7 @@ class ValidationKey(models.Model):
         keys = ValidationKey.objects.filter(identifier__in=keys)
 
         # fail if we have too few keys
-        if keys.count() != KEYS_REQUIRED:
+        if keys.count() != cls.KEYS_REQUIRED:
             return False
 
         # delete the keys and mark that they were valid

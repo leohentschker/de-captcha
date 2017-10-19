@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.utils.crypto import get_random_string
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponseBadRequest
 import enchant
 
 from decaptcha.models import Image, ValidationKey
@@ -46,12 +46,13 @@ class ImageCreateView(generics.CreateAPIView):
         adds the file to IPFS and creates the
         database object
         """
-        decaptcha_keys = request.data.get('decaptcha_keys')
+        credentials = request.data.get('credentials')
+        decaptcha_keys = credentials.split(':')
 
         # check that the captcha keys we submit are
         # valid
         if not ValidationKey.validate_decaptcha(decaptcha_keys):
-            return JsonResponse({"error": "Invalid CAPTCHA"})
+            return HttpResponseBadRequest("Invalid CAPTCHA")
 
         # upload the image
         image_object = request.data.pop('image')[0]
