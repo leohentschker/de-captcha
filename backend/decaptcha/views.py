@@ -1,11 +1,12 @@
 from decaptcha.serializers import ImageSerializer
 from rest_framework.response import Response
+from django.utils.crypto import get_random_string
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse, Http404
 import enchant
 
-from decaptcha.models import Image
+from decaptcha.models import Image, ValidationKey
 
 ENGLISH_DICT = enchant.Dict("en_US")
 
@@ -45,6 +46,14 @@ class ImageCreateView(generics.CreateAPIView):
         adds the file to IPFS and creates the
         database object
         """
+        decaptcha_keys = request.data.get('decaptcha_keys')
+
+        # check that the captcha keys we submit are
+        # valid
+        if not ValidationKey.validate_decaptcha(decaptcha_keys):
+            return JsonResponse({"error": "Invalid CAPTCHA"})
+
+        # upload the image
         image_object = request.data.pop('image')[0]
 
         image = Image.from_image_file(image_object)
@@ -90,17 +99,23 @@ class ImageLabelView(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         label = request.data.get('label')
         cleaned_label = label.lower().strip()
-
+        print (cleaned_label, "THE CLEAN LA")
         # make sure the user submitted an actual word
         if not cleaned_label or not ENGLISH_DICT.check(cleaned_label):
             return JsonResponse({"valid": False})
 
         # retrieve the object
         image = self.get_object()
-
+        print (image.labels, "THE PREV LA")
         # store the new label we are marking
         previous_similar = image.labels.get(cleaned_label, 0)
         image.labels[cleaned_label] = previous_similar + 1
         image.save()
 
-        return JsonResponse({"valid": image.is_valid_label(cleaned_label)})
+        # create a validation key for the correct labeling
+        key, _ = ValidationKey.objects.get_or_create(identifier=get_random_string(length=100))
+
+        return JsonResponse({
+            "valid": image.is_valid_label(cleaned_label),
+            "key": key.identifier,
+        })

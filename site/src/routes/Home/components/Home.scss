@@ -1,6 +1,8 @@
 @import "../../../globals.scss";
 
 #home {
+	overflow: scroll;
+
 	color: #dadada;
 
 	display: flex;
@@ -42,10 +44,6 @@
 		.upload-description {
 			margin: 20px;
 		}
-	}
-
-	.de-captcha {
-		flex: 1;
 	}
 
 	.footer {

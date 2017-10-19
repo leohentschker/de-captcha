@@ -1,6 +1,7 @@
 import apisauce from 'apisauce'
 
-const base = 'http://ec2-34-196-182-140.compute-1.amazonaws.com'
+// determine the correct base url
+const base = __DEV__ ? 'http://localhost:8000' : 'http://ec2-34-196-182-140.compute-1.amazonaws.com'
 
 const create = (baseURL = base) => {
   const api = apisauce.create({
@@ -22,13 +23,12 @@ const create = (baseURL = base) => {
       .then(resp => resp.data)
   }
 
-  const loadImage = numCorrect =>
+  const getImage = async numCorrect =>
     api.get('image/', { numCorrect })
       .then(resp => resp.data)
 
-  const submitLabel = async (multihash, label, numCorrect) =>
+  const submitLabel = async (multihash, label) =>
     api.put('label/', {
-      numCorrect,
       multihash,
       label,
     })
@@ -42,7 +42,7 @@ const create = (baseURL = base) => {
     uploadImage,
     submitLabel,
     flagImage,
-    loadImage,
+    getImage,
   }
 }
 

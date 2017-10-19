@@ -8,51 +8,30 @@ export default class SubmissionContainer extends Component {
 
   static propTypes = {
     submitLabel: PropTypes.func.isRequired,
-    multihash: PropTypes.string.isRequired,
+    updateLabel: PropTypes.func.isRequired,
     flagImage: PropTypes.func.isRequired,
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      label: '',
-    }
-
-    this.submitLabel = this.submitLabel.bind(this)
-  }
-
-  submitLabel() {
-    if (this.state.label.length === 0) {
-      return
-    }
-
-    this.props.submitLabel(
-      this.props.multihash,
-      this.state.label,
-    )
-
-    this.setState({ label: '' })
+    label: PropTypes.string.isRequired,
   }
 
   render() {
     return (
       <div className="submission-container">
-        <div className="description">Label the image you see above</div>
+        <div className="description">Describe what you see above in one word</div>
         <div className="input-wrapper">
           <input
             autoFocus
             className="label-input"
             placeholder="ex. cat, shoe, car"
             type="text"
-            value={this.state.label}
-            onChange={e => this.setState({ label: e.target.value })}
-            onKeyPress={e => (e.key === 'Enter' ? this.submitLabel() : null)}
+            value={this.props.label}
+            onChange={e => this.props.updateLabel(e.target.value)}
+            onKeyPress={e => (e.key === 'Enter' ? this.props.submitLabel() : null)}
           />
           <div
             role="button"
             tabIndex={0}
             className="submit-label-btn"
-            onClick={() => this.submitLabel()}
+            onClick={() => this.props.submitLabel()}
           >
             <span>Submit Label</span>
           </div>
@@ -67,7 +46,7 @@ export default class SubmissionContainer extends Component {
                 text: 'This will prevent other users from seeing the image until it is manually reviewed.',
                 type: 'question',
               })
-              .then(() => this.props.flagImage(this.props.multihash))
+              .then(() => this.props.flagImage())
             }
             data-tip="Flag content as inappropriate"
           >
