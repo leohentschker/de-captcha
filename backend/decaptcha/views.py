@@ -2,7 +2,7 @@ from decaptcha.serializers import ImageSerializer
 from rest_framework.response import Response
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 import enchant
 
 from decaptcha.models import Image
@@ -17,7 +17,12 @@ class ImageRetrievalView(generics.RetrieveAPIView):
     queryset = Image.objects.filter(flagged=False).order_by('?')
 
     def get_object(self):
-        numCorrect = self.request.query_params.get("numCorrect")
+        num_correct_str = self.request.query_params.get("numCorrect")
+
+        try:
+            num_correct = int(num_correct_str)
+        except:
+            raise Http404
 
         # only start showing new images after
         # the user has proven they are answering
