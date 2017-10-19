@@ -1,19 +1,37 @@
-@import "../../../globals.scss";
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Avenir !important;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#root {
+	background: linear-gradient(to bottom right, #0D2537, #1E4C68);
+}
 
 #home {
-	overflow: scroll;
-
 	color: #dadada;
+	background: linear-gradient(to bottom right, #0D2537, #1E4C68);
 
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	height: 100%;
-	max-width: 1000px;
 
 	.header {
 
-		margin: 30px;
+		margin: 25px;
 
 		.title {
 			font-size: 40px;
@@ -26,12 +44,12 @@
 	}
 
 	.submit-wrapper {
-		margin-top: 20px;
+		margin-top: 35px;
 	}
 
 	.submit-wrapper > div {
 		height: 80px !important;
-		width: 500px !important;
+		width: 550px !important;
 		font-size: 20px;
 		border-radius: 10px !important;
 

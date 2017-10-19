@@ -1,24 +1,38 @@
 // external
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Spinner from 'react-spinkit'
 import swal from 'sweetalert2'
 
 // internal
-import Api from '../../services/Api'
 import ImageContainer from './ImageContainer'
 import SubmissionBar from './SubmissionBar'
-
-import './DeCAPTCHA.scss'
+import constants from './constants'
+import Spinner from './Spinner'
+import Api from '../Api'
 
 const api = Api.create()
 
-const KEYS_REQUIRED = 1
+const KEYS_REQUIRED = 3
 
 export default class DeCAPTCHA extends Component {
 
   static propTypes = {
     updateValidCaptcha: PropTypes.func.isRequired,
+
+    // style props
+    secondaryColor: PropTypes.string,
+    primaryColor: PropTypes.string,
+    fontColor: PropTypes.string,
+    height: PropTypes.number,
+    width: PropTypes.number,
+  }
+
+  static defaultProps = {
+    secondaryColor: '#dadada',
+    primaryColor: '#0D2537',
+    fontColor: 'black',
+    height: 450,
+    width: 550,
   }
 
   constructor(props) {
@@ -96,32 +110,49 @@ export default class DeCAPTCHA extends Component {
   }
 
   render() {
+
     return (
-      <div className="de-captcha">
+      <div
+        className="de-captcha"
+        style={{
+          background: this.props.secondaryColor,
+          height: this.props.height,
+          width: this.props.width,
+          borderRadius: '3px',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+        }}
+      >
         {this.state.multihash ? (
-          <div className="de-captcha">
-            <div className="de-captcha-content-wrapper">
+          <div
+            className="de-captcha-content-wrapper"
+            style={{
+              margin: constants.MARGIN,
+              height: '100%',
+            }}
+          >
+            <div
+              style={{
+                height: this.props.height - (constants.SUBMISSION_BAR_SIZE + constants.MARGIN),
+              }}
+            >
               <ImageContainer
                 multihash={this.state.multihash}
                 getImage={this.getImage}
               />
-              <SubmissionBar
-                updateLabel={label => this.setState({ label: label })}
-                submitLabel={this.submitLabel}
-                flagImage={this.flagImage}
-                label={this.state.label}
-              />
             </div>
+            <SubmissionBar
+              secondaryColor={this.props.secondaryColor}
+              primaryColor={this.props.primaryColor}
+              fontColor={this.props.fontColor}
+              updateLabel={label => this.setState({ label })}
+              submitLabel={this.submitLabel}
+              flagImage={this.flagImage}
+              label={this.state.label}
+            />
           </div>
 
         ) : (
-          <div className="loading-spinner-wrapper">
-            <Spinner
-              name="pulse"
-              color="#0D2537"
-              fadeIn="none"
-            />
-          </div>
+          <Spinner />
         )}
       </div>
     )

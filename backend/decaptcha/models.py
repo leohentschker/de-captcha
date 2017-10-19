@@ -56,7 +56,7 @@ class Image(models.Model):
         Takes a label and determines whether
         or not we consider it to be valid
         """
-        return self.labels[label] > 0
+        return self.labels[label] > 1
 
     @classmethod
     def from_image_file(cls, image_object):

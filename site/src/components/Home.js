@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import swal from 'sweetalert2'
 
 // internal
-import DeCAPTCHA from '../../../components/DeCAPTCHA'
+import DeCAPTCHA from '../decaptcha'
 import SubmitButton from './SubmitButton'
-import Api from '../../../services/Api'
+import Api from '../Api'
 import Header from './Header'
 import Footer from './Footer'
 import './Home.scss'
@@ -14,17 +14,6 @@ import './Home.scss'
 const api = Api.create()
 
 export default class Home extends Component {
-
-  static propTypes = {
-    captchaActions: PropTypes.objectOf(PropTypes.func).isRequired,
-    imageActions: PropTypes.objectOf(PropTypes.func).isRequired,
-    numCorrect: PropTypes.number.isRequired,
-    multihash: PropTypes.string,
-  }
-
-  static defaultProps = {
-    multihash: '',
-  }
 
   constructor(props) {
     super(props)
@@ -45,7 +34,7 @@ export default class Home extends Component {
         title: 'Upload success!',
         type: 'success',
         html: `You can access your file here <a target="_blank" href="${link}">${link}</a>`,
-      })      
+      })
     })
   }
 
