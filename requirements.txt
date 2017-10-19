@@ -4,3 +4,4 @@ djangorestframework
 ipfsapi
 gunicorn
 pyenchant
+django-cors-headers
