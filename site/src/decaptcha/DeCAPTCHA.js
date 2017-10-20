@@ -137,7 +137,7 @@ export default class DeCAPTCHA extends Component {
           width: this.props.width,
           borderRadius: '3px',
           boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-          border: `2px solid ${this.state.boxBorder}`
+          border: `4px solid ${this.state.boxBorder}`
         }}
       >
         {this.state.multihash ? (

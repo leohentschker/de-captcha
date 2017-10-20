@@ -107,7 +107,7 @@ export default class SubmissionContainer extends Component {
               })
               .then(() => this.props.flagImage())
             }
-            data-tip="Flag content as inappropriate"
+            data-tip="Flag image as inappropriate"
             style={{
               color: this.props.primaryColor,
               borderStyle: 'solid',

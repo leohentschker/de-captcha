@@ -12,7 +12,7 @@ const SubmitButton = ({ uploadImage, enabled, remaining }) => {
         disabled={!enabled}
       >
         <span className="upload-description">
-          {enabled ? 'Add your own image' : `Correctly label ${remaining} more images to enable uploading!`}
+          {enabled ? 'Add your own image' : `Correctly label ${remaining} more image${(remaining > 1) ? 's' : ''} to enable uploading!`}
         </span>
       </Dropzone>
     </div>
