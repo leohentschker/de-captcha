@@ -1,6 +1,7 @@
 from decaptcha.serializers import ImageSerializer
 from rest_framework.response import Response
 from django.utils.crypto import get_random_string
+from rest_framework.views import APIView
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse, Http404, HttpResponseBadRequest
@@ -9,6 +10,20 @@ import enchant
 from decaptcha.models import Image, ValidationKey
 
 ENGLISH_DICT = enchant.Dict("en_US")
+
+
+class VerifyKeys(APIView):
+
+    def post(self, request, format=None):
+        """
+        Ensure that a collection of keys are valid
+        """
+        try:
+            decaptcha_keys = request.data.get('credentials').split(':')
+            assert(ValidationKey.validate_decaptcha(decaptcha_keys))
+        except:
+            return HttpResponseBadRequest("Invalid CAPTCHA")
+
 
 class ImageRetrievalView(generics.RetrieveAPIView):
     """
@@ -47,11 +62,13 @@ class ImageCreateView(generics.CreateAPIView):
         database object
         """
         credentials = request.data.get('credentials')
-        decaptcha_keys = credentials.split(':')
 
         # check that the captcha keys we submit are
         # valid
-        if not ValidationKey.validate_decaptcha(decaptcha_keys):
+        try:
+            decaptcha_keys = credentials.split(':')
+            assert(ValidationKey.validate_decaptcha(decaptcha_keys))
+        except:
             return HttpResponseBadRequest("Invalid CAPTCHA")
 
         # upload the image
@@ -100,7 +117,6 @@ class ImageLabelView(generics.UpdateAPIView):
     def update(self, request, *args, **kwargs):
         label = request.data.get('label')
         cleaned_label = label.lower().strip()
-        print (cleaned_label, "THE CLEAN LA")
         # make sure the user submitted an actual word
         if not cleaned_label or not ENGLISH_DICT.check(cleaned_label):
             return JsonResponse({"valid": False})
