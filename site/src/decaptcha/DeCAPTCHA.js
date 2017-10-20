@@ -22,6 +22,8 @@ export default class DeCAPTCHA extends Component {
     // style props
     secondaryColor: PropTypes.string,
     primaryColor: PropTypes.string,
+    successTint: PropTypes.string,
+    errorTint: PropTypes.string,
     fontColor: PropTypes.string,
     height: PropTypes.number,
     width: PropTypes.number,
@@ -30,6 +32,8 @@ export default class DeCAPTCHA extends Component {
   static defaultProps = {
     secondaryColor: '#dadada',
     primaryColor: '#0D2537',
+    successTint: '#B8E986',
+    errorTint: '#B65A5A',
     fontColor: 'black',
     height: 450,
     width: 550,
@@ -41,6 +45,7 @@ export default class DeCAPTCHA extends Component {
       validationKeys: [],
       numCorrect: 0,
       multihash: '',
+      boxBorder: this.props.secondaryColor,
       label: '',
     }
 
@@ -83,10 +88,15 @@ export default class DeCAPTCHA extends Component {
     .then(({ valid, key }) => {
       if (valid) {
         this.setState({
+          validationKeys: [key].concat(this.state.validationKeys),
           numCorrect: this.state.numCorrect + 1,
-          validationKeys: [key].concat(this.state.validationKeys)
+          boxBorder: this.props.successTint,
         })
+      } else {
+        this.setState({ boxBorder: this.props.errorTint })
       }
+      // re-hide the box border after a second
+      setTimeout(() => this.setState({ boxBorder: this.props.secondaryColor }), 3000)
     })
     .then(() => this.setState({ label: '', multihash: '' }))
     .then(() => this.getImage())
@@ -120,6 +130,7 @@ export default class DeCAPTCHA extends Component {
           width: this.props.width,
           borderRadius: '3px',
           boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+          border: `2px solid ${this.state.boxBorder}`
         }}
       >
         {this.state.multihash ? (

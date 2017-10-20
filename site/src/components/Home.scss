@@ -32,6 +32,10 @@ body {
 	.header {
 
 		margin: 25px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
 
 		.title {
 			font-size: 40px;
