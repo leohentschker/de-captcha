@@ -14,4 +14,4 @@ Secondly, following the lead of ReCAPTCHA, I think that adding in a CAPTCHA comp
 The client is a standard React app and the backend is a Django client. I'm using the [py-ipfs-api](https://github.com/ipfs/py-ipfs-api) to interact with IPFS on the backend.
 
 ## Where are all these initial images from?
-The database was initially populated with pictures from [VISUALGENOME](http://visualgenome.org/). By pulling tags provided in the metadata, I was able to pre-populate the database with a collection of 1000 images that already came with a set of coherent labels.
+The database was initially populated with pictures from [VISUALGENOME](http://visualgenome.org/). By pulling tags from the metadata that VISUALGENOME provides for their images, I was able to pre-populate the database with a collection of 1000 labeled images.
