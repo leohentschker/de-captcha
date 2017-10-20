@@ -33,12 +33,15 @@ export default class SubmissionContainer extends Component {
         <div
           className="description"
           style={{
-            color: this.props.fontColor,
+            textAlign: 'center',
             marginTop: '10px',
             fontSize: '18px',
+            color: this.props.fontColor,
           }}
         >
-          Describe what you see above in one word
+          <span>Describe what you see above in one word</span>
+          <br />
+          <span>(there are multiple correct answers!)</span>
         </div>
         <div
           className="input-wrapper"

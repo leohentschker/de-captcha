@@ -18,6 +18,7 @@ export default class DeCAPTCHA extends Component {
 
   static propTypes = {
     updateValidCaptcha: PropTypes.func.isRequired,
+    updateNumRemaining: PropTypes.func,
 
     // style props
     secondaryColor: PropTypes.string,
@@ -30,6 +31,7 @@ export default class DeCAPTCHA extends Component {
   }
 
   static defaultProps = {
+    updateNumRemaining: () => null,
     secondaryColor: '#dadada',
     primaryColor: '#0D2537',
     successTint: '#B8E986',
@@ -62,6 +64,11 @@ export default class DeCAPTCHA extends Component {
   componentDidUpdate(prevProps, prevState) {
     const prevCorrect = prevState.validationKeys.length
     const currCorrect = this.state.validationKeys.length
+
+    if (prevCorrect != currCorrect) {
+      this.props.updateNumRemaining(KEYS_REQUIRED - currCorrect)
+    }
+
     if (prevCorrect < KEYS_REQUIRED && currCorrect >= KEYS_REQUIRED) {
       this.props.updateValidCaptcha(true)
     }

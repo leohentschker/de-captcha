@@ -19,6 +19,7 @@ export default class Home extends Component {
     super(props)
     this.state = {
       enableSubmit: false,
+      numRemaining: 3,
     }
 
     this.uploadImage = this.uploadImage.bind(this)
@@ -44,10 +45,12 @@ export default class Home extends Component {
         <Header />
         <DeCAPTCHA
           updateValidCaptcha={valid => this.setState({ enableSubmit: valid })}
+          updateNumRemaining={numRemaining => this.setState({ numRemaining })}
           ref={captcha => this.captcha = captcha}
         />
         <SubmitButton
           uploadImage={this.uploadImage}
+          remaining={this.state.numRemaining}
           enabled={this.state.enableSubmit}
         />
         <Footer />
