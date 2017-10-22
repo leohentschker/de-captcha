@@ -1,4 +1,4 @@
-# DeCAPTCHA
+# [DeCAPTCHA](decaptcha.io)
 I started this project with two goals in mind. First, I wanted to get a better understanding of how IPFS works. I absolutely love what Protocol Labs is doing and wanted to check out some of the products they've built first hand. Secondly, I wanted to explore the difficulties surrounding rolling my own CAPTCHA implementation. I recently watched Luis von Ahn's [Ted Talk](https://www.youtube.com/watch?v=-Ht4qiDRZE8) and was blown away by the sheer impact that he and the ReCAPTCHA team were able to have.
 
 
