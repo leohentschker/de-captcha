@@ -1,5 +1,5 @@
-var Game = artifacts.require("./SatoshisDilemna.sol")
+var DeCAPTCHA = artifacts.require("./DeCAPTCHA.sol");
 
 module.exports = (deployer) => {
-  deployer.deploy(Game)
+  deployer.deploy(DeCAPTCHA)
 }

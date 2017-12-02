@@ -62,6 +62,7 @@ contract DeCAPTCHA is Ownable {
 
     function hashAnswer(string answer, uint256 timestamp)
     	internal
+    	pure
     	returns (bytes32)
     {
     	return keccak256(answer, timestamp);
@@ -100,6 +101,7 @@ contract DeCAPTCHA is Ownable {
 	// message sender
 	function solvedProblem(Problem problem, string answer)
 		internal
+		pure
 		returns (bool)
 	{
 		uint agreement = 0;
