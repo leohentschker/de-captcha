@@ -1,0 +1,69 @@
+{
+  "contractName": "RewardLib",
+  "abi": [],
+  "bytecode": "0x60606040523415600e57600080fd5b603580601b6000396000f3006060604052600080fd00a165627a7a72305820a56fffa0a613967fa0eae0ff409399f9724ec8af14898304f891c28da2dfba220029",
+  "deployedBytecode": "0x6060604052600080fd00a165627a7a72305820a56fffa0a613967fa0eae0ff409399f9724ec8af14898304f891c28da2dfba220029",
+  "sourceMap": "25:22:0:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "25:22:0:-;;;;;",
+  "source": "pragma solidity ^0.4.4;\n\nlibrary RewardLib {\n\n}",
+  "sourcePath": "/Users/leohentschker/de-captcha/crypto/contracts/Rewards.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/Users/leohentschker/de-captcha/crypto/contracts/Rewards.sol",
+      "exportedSymbols": {
+        "RewardLib": [
+          2
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".4"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "0:23:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "library",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            2
+          ],
+          "name": "RewardLib",
+          "nodes": [
+            null
+          ],
+          "scope": 3
+        },
+        "id": 2,
+        "name": "ContractDefinition",
+        "src": "25:22:0"
+      }
+    ],
+    "id": 3,
+    "name": "SourceUnit",
+    "src": "0:47:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2017-12-02T19:24:28.357Z"
+}

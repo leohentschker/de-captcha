@@ -1,0 +1,25 @@
+{
+  "name": "satoshis-dilemna-package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "babel-register": "^6.26.0",
+    "bip39": "^2.4.0",
+    "crypto": "^1.0.1",
+    "ethereumjs-wallet": "^0.6.0",
+    "regenerator-runtime": "^0.11.0",
+    "web3": "^0.18.4",
+    "web3-provider-engine": "^8.6.1",
+    "zeppelin-solidity": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
