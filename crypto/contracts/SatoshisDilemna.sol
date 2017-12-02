@@ -42,14 +42,20 @@ contract DeCAPTCHA is Ownable {
 	mapping (uint256 => Problem) problems;
 	uint256 numQuestions;
 
-    modifier activeProblem(uint256 problemID)
-    {
+	bool useWhitelist;
+	mapping (address => bool) whitelist;
+
+	modifier whitelisted() {
+		require(!useWhitelist || whitelist[msg.sender]);
+		_;
+	}
+
+    modifier activeProblem(uint256 problemID) {
         require(problems[problemID].active);
         _;
     }
 
-    modifier problemOwner(uint256 problemID)
-    {
+    modifier problemOwner(uint256 problemID) {
         require(problems[problemID].creator == msg.sender);
         _;
     }
@@ -63,6 +69,7 @@ contract DeCAPTCHA is Ownable {
 
 	function submitProblem(string question, string ipfsHash)
 		public
+		whitelisted()
 		payable
 	{
 		// initialize the new problem
