@@ -1,0 +1,56 @@
+@import "../../globals.scss";
+
+#base-layout {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  justify-content: center;
+  padding: 0px;
+  overflow: scroll;
+
+  background: linear-gradient(to bottom right, #0D2537, #1E4C68);
+
+  .content-wrapper {
+    height: 100%;
+
+    .base-layout__viewport {
+      overflow: scroll;
+      height: 100%;
+    }
+
+    #sidebar {
+      width: 200px;
+      text-align: left;
+
+      // for active projects
+      .active > div{
+        background: rgb(229,229,229);
+      }
+
+      .icon-items div > div {
+        padding-left: 25px !important;
+      }
+
+      .sidebar-logo-wrapper {
+        background: $baseColor !important;
+
+        img {
+          width: 150px;
+        }
+      }
+
+      .sidebar-logo-wrapper > div {
+        height: 100%;
+      }
+
+      a {
+        color: black;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

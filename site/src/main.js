@@ -1,6 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AppContainer from './AppContainer'
+import createStore from './store/createStore'
+import AppContainer from './containers/AppContainer'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+injectTapEventPlugin()
+
+// ========================================================
+// Store Instantiation
+// ========================================================
+const initialState = window.___INITIAL_STATE__
+const store = createStore(initialState)
 
 // ========================================================
 // Render Setup
@@ -8,9 +18,11 @@ import AppContainer from './AppContainer'
 const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
+  const routes = require('./routes/index').routes(store)
+
   ReactDOM.render(
-    <AppContainer />,
-    MOUNT_NODE,
+    <AppContainer store={store} routes={routes} />,
+    MOUNT_NODE
   )
 }
 
@@ -34,6 +46,14 @@ if (__DEV__) {
         renderError(error)
       }
     }
+
+    // Setup hot module replacement
+    module.hot.accept('./routes/index', () =>
+      setImmediate(() => {
+        ReactDOM.unmountComponentAtNode(MOUNT_NODE)
+        render()
+      })
+    )
   }
 }
 

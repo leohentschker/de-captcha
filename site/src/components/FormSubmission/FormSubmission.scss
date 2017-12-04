@@ -1,0 +1,46 @@
+@import "../../globals.scss";
+
+$textOffset: 20px;
+
+.form-submission {
+
+	font-weight: 300;
+
+	.form-container {
+		width: 60%;
+	}
+
+	.title-box {
+		background: $tertiaryColor !important;
+		text-align: left;
+		margin-top: 50px;
+		color: white !important;
+		padding: $textOffset;
+
+		.form-title {
+			font-size: 40px;
+			font-weight: 300;
+		}
+
+		.form-description {
+			font-weight: 300;
+			font-size: 18px;
+		}
+	}
+
+	.progress-indicator {
+		text-align: left;
+		margin-left: $textOffset;
+		font-size: 20px;
+		margin: $textOffset;
+	}
+
+	.page-container {
+	}
+
+	.action-buttons {
+		.button-wrapper {
+			margin: 40px;
+		}
+	}
+}

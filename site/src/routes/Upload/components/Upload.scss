@@ -1,0 +1,95 @@
+@import "../../../globals.scss";
+
+#landing {
+	width: 100%;
+
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+
+		@include texture($tertiaryColor, 9, 0);
+
+		color: #dadada;
+
+		.animation-wrapper {
+			position: absolute;
+		}
+
+		.pitch {
+			z-index: 1;
+			color: white;
+			margin-top: 110px;
+			font-size: 70px;
+		}
+
+		.learn-more-button {
+			max-width: 400px;
+			background: $baseColor;
+			color: #dadada;
+			font-size: 20px;
+			padding: 15px;
+			border: 2px $baseColor;
+			border-style: solid;
+			margin: 60px;
+			border-radius: 3px;
+			z-index: 1;
+
+			&:hover {
+				background: white;
+				color: $baseColor;
+			}
+		}
+	}
+
+	.description {
+		justify-content: center;
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+
+
+		.content {
+			max-width: 800px;
+			margin-top: 30px;
+
+			.title {
+				color: $tertiaryColor;
+				font-size: 30px;
+				margin: 10px;
+			}
+
+			.info {
+				margin: 20px;
+				color: $darkColor;
+				font-size: 25px;
+			}
+
+			.action-buttons {
+				flex-direction: row;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 40px;
+
+				.action-button {
+					font-size: 25px;
+					margin: 20px;
+					background: $baseColor;
+					color: white;
+					padding: 15px;
+					border-radius: 4px;
+					border: 2px $baseColor;
+					border-style: solid;
+
+					&:hover {
+						background: white;
+						color: $baseColor;
+					}
+				}
+			}	
+		}
+
+	}
+}
