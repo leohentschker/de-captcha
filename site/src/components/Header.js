@@ -4,7 +4,7 @@ const Header = () => (
   <div className="header">
     <img src="/logo.png" />
     <div className="subtitle">
-      Host your images for free on IPFS
+      Be part of the future of CAPTCHA
     </div>
   </div>
 )

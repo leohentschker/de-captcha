@@ -47,25 +47,9 @@ body {
 		}
 	}
 
-	.submit-wrapper {
-		margin-top: 35px;
-	}
-
-	.submit-wrapper > div {
-		height: 80px !important;
-		width: 550px !important;
-		font-size: 20px;
-		border-radius: 10px !important;
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		cursor: pointer;
-
-		.upload-description {
-			text-align: center;
-			margin: 20px;
+	#upload-form {
+		.upload-form-component {
+			min-width: 500px;
 		}
 	}
 
